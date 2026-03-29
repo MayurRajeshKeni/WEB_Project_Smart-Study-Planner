@@ -1,0 +1,951 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Mayur R Keni | Portfolio</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        /* smooth scroll without JS [web:25] */
+        body {
+            font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+            background: #f5f7fb;
+            color: #111827;
+            line-height: 1.6;
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+
+        img {
+            max-width: 100%;
+            display: block;
+        }
+
+        /* Navbar */
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            background: rgba(255, 255, 255, 0.9);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid #e5e7eb;
+            z-index: 100;
+        }
+
+        .nav {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 0.8rem 1rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .nav-left span {
+            font-weight: 700;
+            color: #2563eb;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 1rem;
+            font-size: 0.95rem;
+        }
+
+        .nav-links a {
+            padding: 0.4rem 0.8rem;
+            border-radius: 999px;
+        }
+
+        .nav-links a:hover {
+            background: #dbeafe;
+            color: #1d4ed8;
+        }
+
+        /* Layout */
+        main {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 5rem 1rem 3rem;
+        }
+
+        section {
+            padding: 3.5rem 0 2.5rem;
+            border-bottom: 1px solid #e5e7eb;
+        }
+
+        section:last-of-type {
+            border-bottom: none;
+        }
+
+        .section-title {
+            font-size: 1.6rem;
+            margin-bottom: 1.5rem;
+            color: #111827;
+        }
+
+        /* Hero */
+        .hero {
+            display: grid;
+            grid-template-columns: minmax(0, 2fr) minmax(0, 1.3fr);
+            gap: 2rem;
+            align-items: center;
+        }
+
+        .badge {
+            display: inline-block;
+            padding: 0.25rem 0.75rem;
+            border-radius: 999px;
+            background: #e0f2fe;
+            color: #0369a1;
+            font-size: 0.8rem;
+            margin-bottom: 0.7rem;
+        }
+
+        .hero h1 {
+            font-size: 2.2rem;
+            margin-bottom: 0.4rem;
+        }
+
+        .hero h2 {
+            font-size: 1.05rem;
+            font-weight: 500;
+            color: #4b5563;
+            margin-bottom: 1rem;
+        }
+
+        .hero p {
+            font-size: 0.98rem;
+            color: #4b5563;
+            margin-bottom: 1.5rem;
+        }
+
+        .hero-buttons {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.8rem;
+        }
+
+        .btn-primary,
+        .btn-secondary {
+            padding: 0.55rem 1.2rem;
+            border-radius: 999px;
+            font-size: 0.95rem;
+            border: 1px solid transparent;
+            cursor: pointer;
+        }
+
+        .btn-primary {
+            background: #2563eb;
+            color: #fff;
+        }
+
+        .btn-primary:hover {
+            background: #1d4ed8;
+        }
+
+        .btn-secondary {
+            background: #e5e7eb;
+            color: #111827;
+        }
+
+        .btn-secondary:hover {
+            background: #d1d5db;
+        }
+
+        .hero-card {
+            background: linear-gradient(145deg, #dbeafe, #f9fafb);
+            border-radius: 1.3rem;
+            padding: 1.5rem;
+            box-shadow: 0 18px 45px rgba(15, 23, 42, 0.12);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero-avatar {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            overflow: hidden;
+            border: 4px solid #bfdbfe;
+            margin-bottom: 1rem;
+        }
+
+        .hero-meta {
+            font-size: 0.86rem;
+            color: #4b5563;
+        }
+
+        .hero-meta p {
+            margin-bottom: 0.2rem;
+        }
+
+        /* Registration Number Badge */
+        .hero-pill {
+            position: absolute;
+            right: 20px;
+            top: 20px;
+            background: #2563eb;
+            color: #fff;
+            padding: 0.5rem 1.2rem;
+            border-radius: 999px;
+            font-size: 0.8rem;
+            font-weight: 700;
+            box-shadow: 0 4px 12px rgba(37, 99, 235, 0.2);
+            z-index: 10;
+        }
+
+        /* Two-column details */
+        .grid-2 {
+            display: grid;
+            grid-template-columns: 1.3fr 1fr;
+            gap: 2rem;
+        }
+
+        .info-list {
+            list-style: none;
+            font-size: 0.95rem;
+        }
+
+        .info-list li {
+            margin-bottom: 0.45rem;
+        }
+
+        .info-label {
+            font-weight: 600;
+            color: #374151;
+        }
+
+        /* Skills */
+        .chip-grid {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.6rem;
+        }
+
+        .chip {
+            padding: 0.45rem 0.8rem;
+            border-radius: 999px;
+            background: #e5f3ff;
+            border: 1px solid #bfdbfe;
+            font-size: 0.86rem;
+        }
+
+        .chip span {
+            display: block;
+            font-size: 0.75rem;
+            color: #4b5563;
+        }
+
+        /* Education */
+        .edu-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.92rem;
+            background: #ffffff;
+            border-radius: 0.8rem;
+            overflow: hidden;
+            box-shadow: 0 6px 18px rgba(15, 23, 42, 0.06);
+        }
+
+        .edu-table thead {
+            background: #fed7aa;
+        }
+
+        .edu-table th,
+        .edu-table td {
+            padding: 0.7rem 0.9rem;
+            text-align: left;
+        }
+
+        .edu-table tbody tr:nth-child(odd) {
+            background: #fff7ed;
+        }
+
+        /* Cards */
+        .cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 1.4rem;
+        }
+
+        .card {
+            background: #ffffff;
+            border-radius: 0.9rem;
+            padding: 1.1rem 1.2rem;
+            box-shadow: 0 8px 20px rgba(15, 23, 42, 0.05);
+            font-size: 0.94rem;
+        }
+
+        .card h3 {
+            margin-bottom: 0.45rem;
+            font-size: 1rem;
+        }
+
+        .card p {
+            color: #4b5563;
+            font-size: 0.9rem;
+        }
+
+        .card small {
+            display: block;
+            margin-top: 0.5rem;
+            font-size: 0.8rem;
+            color: #6b7280;
+        }
+
+        /* Lists */
+        ul.simple {
+            padding-left: 1.1rem;
+            font-size: 0.95rem;
+        }
+
+        ul.simple li {
+            margin-bottom: 0.3rem;
+        }
+
+        /* Contact form */
+        .contact-grid {
+            display: grid;
+            grid-template-columns: 1.1fr 1fr;
+            gap: 2rem;
+        }
+
+        .contact-form {
+            background: #ffffff;
+            border-radius: 0.9rem;
+            padding: 1.1rem 1.2rem;
+            box-shadow: 0 8px 20px rgba(15, 23, 42, 0.05);
+        }
+
+        .field {
+            margin-bottom: 0.8rem;
+        }
+
+        .field label {
+            display: block;
+            font-size: 0.85rem;
+            margin-bottom: 0.25rem;
+            color: #4b5563;
+        }
+
+        .field input,
+        .field textarea {
+            width: 100%;
+            padding: 0.5rem 0.6rem;
+            border-radius: 0.6rem;
+            border: 1px solid #d1d5db;
+            font: inherit;
+            resize: vertical;
+        }
+
+        .field input:focus,
+        .field textarea:focus {
+            outline: none;
+            border-color: #2563eb;
+            box-shadow: 0 0 0 1px #bfdbfe;
+        }
+
+        .contact-note {
+            font-size: 0.9rem;
+            color: #4b5563;
+        }
+
+        /* Languages & badges */
+        .badge-row {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+        }
+
+        .badge-item {
+            padding: 0.35rem 0.8rem;
+            border-radius: 999px;
+            background: #dcfce7;
+            border: 1px solid #bbf7d0;
+            font-size: 0.85rem;
+        }
+
+        /* Declaration */
+        .profile-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.94rem;
+            background: #ecfdf5;
+            border-radius: 0.8rem;
+            overflow: hidden;
+        }
+
+        .profile-table td {
+            padding: 0.6rem 0.9rem;
+            border-bottom: 1px solid #d1fae5;
+        }
+
+        .profile-table tr:last-child td {
+            border-bottom: none;
+        }
+
+        .decl-text {
+            margin-top: 1rem;
+            font-size: 0.93rem;
+            color: #374151;
+        }
+
+        .decl-meta {
+            margin-top: 0.8rem;
+            font-size: 0.9rem;
+        }
+
+        .decl-meta p {
+            margin-bottom: 0.2rem;
+        }
+
+        .decl-sign {
+            margin-top: 1.2rem;
+            text-align: right;
+            font-weight: 600;
+            padding-right: 2.5rem;
+        }
+
+        /* Footer */
+        footer {
+            text-align: center;
+            font-size: 0.8rem;
+            padding: 1rem 0 0.5rem;
+            color: #6b7280;
+        }
+
+        /* Responsive */
+        @media (max-width:860px) {
+            .hero {
+                grid-template-columns: 1fr;
+            }
+
+            .grid-2 {
+                grid-template-columns: 1fr;
+            }
+
+            .contact-grid {
+                grid-template-columns: 1fr;
+            }
+
+            header {
+                position: static;
+            }
+
+            main {
+                padding-top: 2rem;
+            }
+
+            .nav {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 0.5rem;
+            }
+
+            .nav-links {
+                flex-wrap: wrap;
+            }
+        }
+
+        /* Featured Project Container */
+        .featured-project {
+            background: linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%);
+            color: #fff;
+            border-radius: 1.3rem;
+            padding: 2rem;
+            margin-bottom: 2.5rem;
+            box-shadow: 0 15px 40px rgba(37, 99, 235, 0.2);
+            border: 2px solid #3b82f6;
+        }
+
+        /* Featured Project Label Badge */
+        .featured-label {
+            font-size: 0.75rem;
+            font-weight: 900;
+            text-transform: uppercase;
+            letter-spacing: 0.15em;
+            opacity: 0.9;
+            margin-bottom: 0.7rem;
+            background: rgba(255, 255, 255, 0.2);
+            display: inline-block;
+            padding: 0.3rem 0.8rem;
+            border-radius: 999px;
+        }
+
+        /* Featured Project Title */
+        .featured-project h3 {
+            font-size: 1.5rem;
+            margin-bottom: 0.8rem;
+            font-weight: 800;
+        }
+
+        /* Featured Project Description */
+        .featured-project p {
+            opacity: 0.95;
+            margin-bottom: 1.3rem;
+            font-size: 0.95rem;
+            line-height: 1.7;
+        }
+
+        /* Featured Project Tags Container */
+        .featured-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.7rem;
+            margin-bottom: 1.5rem;
+        }
+
+        /* Individual Featured Tags */
+        .featured-tags span {
+            background: rgba(255, 255, 255, 0.25);
+            padding: 0.35rem 0.85rem;
+            border-radius: 999px;
+            font-size: 0.85rem;
+            font-weight: 700;
+        }
+
+        /* Visit Project Button */
+        .visit-btn {
+            display: inline-block;
+            background: #fff;
+            color: #2563eb;
+            padding: 0.65rem 1.5rem;
+            border-radius: 999px;
+            font-size: 0.95rem;
+            font-weight: 800;
+            cursor: pointer;
+            text-decoration: none;
+            transition: all 0.3s;
+        }
+
+        /* Visit Button Hover State */
+        .visit-btn:hover {
+            background: #f0f9ff;
+            transform: translateY(-2px);
+        }
+
+        /* Projects Grid Container */
+        .cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.8rem;
+        }
+
+        /* Individual Project Card */
+        .card {
+            background: #fff;
+            border-radius: 1.1rem;
+            padding: 1.5rem;
+            box-shadow: 0 6px 18px rgba(15, 23, 42, 0.05);
+            border: 1px solid #f0f1f3;
+            transition: all 0.3s;
+        }
+
+        /* Card Hover Effect */
+        .card:hover {
+            box-shadow: 0 15px 40px rgba(15, 23, 42, 0.1);
+            transform: translateY(-6px);
+        }
+
+        /* Card Title */
+        .card h3 {
+            margin-bottom: 0.8rem;
+            font-size: 1.1rem;
+            font-weight: 800;
+        }
+
+        /* Card Description */
+        .card p {
+            color: #4b5563;
+            font-size: 0.93rem;
+            margin-bottom: 1rem;
+            line-height: 1.7;
+        }
+
+        /* Card Tags Container */
+        .card-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin-top: 0.8rem;
+        }
+
+        /* Individual Card Tags */
+        .card-tag {
+            background: #f0f9ff;
+            border: 1px solid #bfdbfe;
+            padding: 0.3rem 0.75rem;
+            border-radius: 999px;
+            font-size: 0.8rem;
+            color: #1d4ed8;
+            font-weight: 700;
+        }
+    </style>
+</head>
+
+<body>
+
+    <header>
+        <nav class="nav">
+            <div class="nav-left">
+                <span>Mayur&nbsp;R&nbsp;Keni</span>
+            </div>
+            <div class="nav-links">
+                <a href="#home">Home</a>
+                <a href="#about">About</a>
+                <a href="#skills">Skills</a>
+                <a href="#education">Education</a>
+                <a href="#projects">Projects</a>
+                <a href="#activities">Activities</a>
+                <a href="#hobbies">Hobbies</a>
+                <a href="#languages">Languages</a>
+                <a href="#contact">Contact</a>
+                <a href="#declaration">Profile</a>
+            </div>
+        </nav>
+    </header>
+
+    <main>
+        <!-- Hero -->
+        <section id="home">
+            <div class="hero">
+                <div>
+                    <span class="badge">CSE Student · VIT Vellore</span>
+                    <h1>Mayur&nbsp;R&nbsp;Keni</h1>
+                    <h2>Computer Science Engineering student, passionate about system optimization, security research,
+                        and data‑driven problem solving.</h2>
+                    <p>
+                        Building efficient, secure, and intelligent solutions that tackle real‑world challenges in
+                        computing efficiency, digital security, and financial risk assessment.
+                    </p>
+                    <div class="hero-buttons">
+                        <a href="#projects" class="btn-primary">View Projects</a>
+                        <a href="#contact" class="btn-secondary">Get in Touch</a>
+                    </div>
+                </div>
+                <div class="hero-card">
+                    <div class="hero-pill">Reg No: 24BCE0686</div>
+                    <div class="hero-avatar">
+                        <!-- Replace src with your real image later -->
+                        <img src="C:\Users\asus\OneDrive\Main\transfer\IMG-20231111-WA0005.jpg" alt="Mayur R Keni">
+                    </div>
+                    <div class="hero-meta">
+                        <p><strong>College:</strong> Vellore College of Engineering, VIT</p>
+                        <p><strong>Email:</strong> mayur.rkeni2024@vitstudent.ac.in</p>
+                        <p><strong>Location:</strong> Vellore, Tamil Nadu, India</p>
+                        <p><strong>GitHub:</strong> github.com/MayurRajeshKeni</p>
+                        <p><strong>LinkedIn:</strong> linkedin.com/in/mayur-keni-8a193a369</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- About -->
+        <section id="about">
+            <h2 class="section-title">About Me</h2>
+            <div class="grid-2">
+                <div>
+                    <p>
+                        I am a creative and technology-enthusiastic Computer Science Engineering student at Vellore
+                        College of Engineering, VIT with a passion for system optimization, security research, and data
+                        analysis.
+                    </p>
+                    <p>
+                        I enjoy exploring new technologies and building innovative solutions that address real-world
+                        challenges in computing efficiency, digital security, and financial risk assessment.
+                    </p>
+                </div>
+                <div>
+                    <ul class="info-list">
+                        <li><span class="info-label">Name:</span> Mayur R Keni</li>
+                        <li><span class="info-label">Registration No:</span> 24BCE0686</li>
+                        <li><span class="info-label">Email:</span> mayur.rkeni2024@vitstudent.ac.in</li>
+                        <li><span class="info-label">Phone:</span> +91 9513815512</li>
+                        <li><span class="info-label">Address:</span> Vellore Institute of Technology, Vellore, Tamil
+                            Nadu, India</li>
+                        <li><span class="info-label">GitHub:</span> <a href="https://github.com/MayurRajeshKeni"
+                                target="_blank">github.com/MayurRajeshKeni</a></li>
+                        <li><span class="info-label">LinkedIn:</span> <a
+                                href="https://www.linkedin.com/in/mayur-keni-8a193a369"
+                                target="_blank">linkedin.com/in/mayur-keni-8a193a369</a></li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- Skills -->
+        <section id="skills">
+            <h2 class="section-title">Skills</h2>
+            <div class="chip-grid">
+                <div class="chip">HTML<span>Creating structured web pages</span></div>
+                <div class="chip">CSS<span>Styling and responsive design</span></div>
+                <div class="chip">JavaScript<span>Interactive web development</span></div>
+                <div class="chip">React<span>Modern web applications</span></div>
+                <div class="chip">C/C++<span>System programming and DSA</span></div>
+                <div class="chip">Java<span>Object-oriented programming</span></div>
+                <div class="chip">Python (AIML)<span>AI and Machine Learning</span></div>
+                <div class="chip">MySQL<span>Database management</span></div>
+            </div>
+        </section>
+
+        <!-- Education -->
+        <section id="education">
+            <h2 class="section-title">Education</h2>
+            <table class="edu-table">
+                <thead>
+                    <tr>
+                        <th>Qualification</th>
+                        <th>Institution</th>
+                        <th>Year</th>
+                        <th>Percentage / CGPA</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>B.Tech in CSE Core</td>
+                        <td>Vellore College of Engineering, VIT</td>
+                        <td>2024–2028</td>
+                        <td>9.23 CGPA (3rd Sem)</td>
+                    </tr>
+                    <tr>
+                        <td>12th Standard</td>
+                        <td>Deeksha CFL PU College</td>
+                        <td>2024</td>
+                        <td>96%</td>
+                    </tr>
+                    <tr>
+                        <td>10th Standard</td>
+                        <td>Vidyaniketan Public School</td>
+                        <td>2022</td>
+                        <td>90%</td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+
+        <!-- Projects -->
+        <section id="projects">
+            <h2 class="section-title">Projects</h2>
+
+            <!-- Featured Project -->
+            <div class="featured-project">
+                <span class="featured-label">Featured Project</span>
+                <h3>Smart Study Planner</h3>
+                <p>Web programming lab project designed to help students organize and plan their study schedules
+                    effectively with intelligent task management and progress tracking features.</p>
+                <div class="featured-tags">
+                    <span>HTML</span>
+                    <span>CSS</span>
+                    <span>JavaScript</span>
+                    <span>React</span>
+                </div>
+                <a href="http://localhost:5173" class="visit-btn" target="_blank" rel="noopener noreferrer">Visit Project →</a>
+            </div>
+
+            <!-- Other Projects -->
+            <div class="cards">
+                <article class="card">
+                    <h3>Smart Battery Aware Scheduler</h3>
+                    <p>Intelligent scheduling system that optimizes battery consumption by dynamically managing system
+                        resources and task scheduling based on battery levels and usage patterns.</p>
+                    <div class="card-tags">
+                        <span class="card-tag">System Programming</span>
+                        <span class="card-tag">Resource Management</span>
+                        <span class="card-tag">Algorithms</span>
+                    </div>
+                </article>
+
+                <article class="card">
+                    <h3>Netflix Piracy Screen Recorder Enhancement</h3>
+                    <p>Research project focused on enhancing screen recording detection and prevention mechanisms to
+                        combat digital content piracy on streaming platforms.</p>
+                    <div class="card-tags">
+                        <span class="card-tag">Security Research</span>
+                        <span class="card-tag">Detection Systems</span>
+                        <span class="card-tag">Digital Rights</span>
+                    </div>
+                </article>
+
+                <article class="card">
+                    <h3>Probability of Bank Defaulting Research</h3>
+                    <p>Research and analysis project to predict the probability of bank loan defaults using statistical
+                        modeling and machine learning techniques on financial datasets.</p>
+                    <div class="card-tags">
+                        <span class="card-tag">Machine Learning</span>
+                        <span class="card-tag">Statistical Modeling</span>
+                        <span class="card-tag">Financial Analysis</span>
+                    </div>
+                </article>
+            </div>
+        </section>
+
+
+        <!-- Activities -->
+        <section id="activities">
+            <h2 class="section-title">Activities & Achievements</h2>
+            <ul class="simple">
+                <li>Achieved 9.23 CGPA in B.Tech CSE Core (3rd Semester).</li>
+                <li>Scored 96% in 12th Standard examinations.</li>
+                <li>Active participant in system optimization and security research.</li>
+                <li>Working on innovative projects in battery management and digital security.</li>
+                <li>Engaged in financial technology and risk assessment research.</li>
+                <li>Member of technology and innovation clubs at VIT.</li>
+                <li>Public speaking experience in technical presentations.</li>
+            </ul>
+        </section>
+
+        <!-- Hobbies & Personality -->
+        <section id="hobbies">
+            <h2 class="section-title">Hobbies & Personality</h2>
+            <div class="grid-2">
+                <div>
+                    <h3>Hobbies</h3>
+                    <ul class="simple">
+                        <li>Swimming</li>
+                        <li>Doodling and creative design</li>
+                        <li>Exploring new technologies</li>
+                        <li>Reading tech blogs</li>
+                        <li>Public speaking</li>
+                        <li>Playing sports</li>
+                        <li>PC and Mobile Gaming</li>
+                    </ul>
+                </div>
+                <div>
+                    <h3>Personality Traits</h3>
+                    <div class="chip-grid">
+                        <div class="chip">Creative</div>
+                        <div class="chip">Technology Enthusiast</div>
+                        <div class="chip">Organized</div>
+                        <div class="chip">Leadership</div>
+                        <div class="chip">Public Speaking</div>
+                        <div class="chip">Managment</div>
+                        <div class="chip">Enterpreneurship</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Languages -->
+        <section id="languages">
+            <h2 class="section-title">Languages</h2>
+            <div class="badge-row">
+                <div class="badge-item">English – Fluent</div>
+                <div class="badge-item">Hindi – Fluent</div>
+                <div class="badge-item">Kannada – Native</div>
+                <div class="badge-item">Tamil – Basic</div>
+                <div class="badge-item">Telgu – Basic</div>
+
+            </div>
+        </section>
+
+        <!-- Contact -->
+        <section id="contact">
+            <h2 class="section-title">Contact</h2>
+            <div class="contact-grid">
+                <div class="contact-form">
+                    <form action="mailto:mayur.rkeni2024@vitstudent.ac.in" method="post" enctype="text/plain">
+                        <div class="field">
+                            <label for="name">Name</label>
+                            <input id="name" name="name" type="text" placeholder="Your name" required>
+                        </div>
+                        <div class="field">
+                            <label for="email">Email</label>
+                            <input id="email" name="email" type="email" placeholder="Your email" required>
+                        </div>
+                        <div class="field">
+                            <label for="message">Message</label>
+                            <textarea id="message" name="message" rows="4" placeholder="Write your message..."
+                                required></textarea>
+                        </div>
+                        <button type="submit" class="btn-primary">Send Message</button>
+                    </form>
+                </div>
+                <div class="contact-note">
+                    <p><strong>Let’s connect.</strong></p>
+                    <p>Open to collaborations, research opportunities, and internships related to systems, security, and
+                        data-driven applications.</p>
+                    <p style="margin-top:0.7rem;">
+                        Email: <a href="mailto:mayur.rkeni2024@vitstudent.ac.in"
+                            style="color: #2563eb; text-decoration: underline;">mayur.rkeni2024@vitstudent.ac.in</a><br>
+                        GitHub: <a href="https://github.com/MayurRajeshKeni" target="_blank"
+                            style="color: #2563eb; text-decoration: underline;">github.com/MayurRajeshKeni</a><br>
+                        LinkedIn: <a href="https://linkedin.com/in/mayur-keni-8a193a369" target="_blank"
+                            style="color: #2563eb; text-decoration: underline;">linkedin.com/in/mayur-keni-8a193a369</a>
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Profile & Declaration -->
+        <section id="declaration">
+            <h2 class="section-title">Personal Profile & Declaration</h2>
+            <table class="profile-table">
+                <tr>
+                    <td><strong>Name</strong></td>
+                    <td>Mayur R Keni</td>
+                </tr>
+                <tr>
+                    <td><strong>Registration Number</strong></td>
+                    <td>24BCE0686</td>
+                </tr>
+                <tr>
+                    <td><strong>Father's Name</strong></td>
+                    <td>Rajesh Keni</td>
+                </tr>
+                <tr>
+                    <td><strong>Mother's Name</strong></td>
+                    <td>Sheela B S</td>
+                </tr>
+                <tr>
+                    <td><strong>Date of Birth</strong></td>
+                    <td>30th June 2006</td>
+                </tr>
+                <tr>
+                    <td><strong>Gender</strong></td>
+                    <td>Male</td>
+                </tr>
+                <tr>
+                    <td><strong>Nationality</strong></td>
+                    <td>Indian</td>
+                </tr>
+            </table>
+
+            <p class="decl-text">
+                I hereby declare that all the information provided above is true and correct to the best of my knowledge
+                and belief.
+                I understand that any false information may lead to disqualification or cancellation of my candidature.
+            </p>
+
+            <div class="decl-meta">
+                <p><strong>Place:</strong> Vellore</p>
+                <p><strong>Date:</strong> January 16, 2026</p>
+            </div>
+
+            <div class="decl-sign">
+                (Mayur R Keni)
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        © 2026 Mayur R Keni · Portfolio
+    </footer>
+
+</body>
+
+</html>
