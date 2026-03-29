@@ -3,7 +3,7 @@
 Welcome to my academic project repository. This project consists of two main parts: a professional **Student Portfolio** and a **Smart Study Planner** designed to optimize study habits using intelligent scheduling.
 
 ## 🔗 Live Links
-- **[Student Portfolio](https://mayurrajeshkeni.github.io/WEB_Project_Smart-Study-Planner/student-profile/stu.%20profile.html)**
+- **[Student Portfolio](https://mayurrajeshkeni.github.io/WEB_Project_Smart-Study-Planner/student-profile/)**
 - **[Smart Study Planner](https://mayurrajeshkeni.github.io/WEB_Project_Smart-Study-Planner/)**
 
 ---
