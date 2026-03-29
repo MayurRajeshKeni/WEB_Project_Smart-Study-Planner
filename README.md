@@ -1,41 +1,86 @@
-# Smart Study Planner
+# Smart Study Planner & Student Portfolio
 
-A fully serverless, browser-based Smart Study Planner built with React + Vite. Plan your study sessions, track streaks, and visualize progress — all powered by `localStorage`.
+Welcome to my academic project repository. This project consists of two main parts: a professional **Student Portfolio** and a **Smart Study Planner** designed to optimize study habits using intelligent scheduling.
 
-## Features
-- 🗓️ Day / Week / Month schedule views
-- 🔥 Streak tracking with max streak history
-- 📊 GitHub-style historical heatmap (Month view → Prev Month)
-- ✅ Block-level task completion with Undo support
-- ➕ Bonus Hours — pull tomorrow's tasks into today on demand
-- 🌙 Light / Dark mode
-- 👤 First-time user onboarding (stored in browser)
-- 🔗 Resource links per task
-- 🎨 Dynamic pastel task color-coding by subject
+## 🔗 Live Links
+- **[Student Portfolio](https://mayurrajeshkeni.github.io/WEB_Project_Smart-Study-Planner/student-profile/stu.%20profile.html)**
+- **[Smart Study Planner](https://mayurrajeshkeni.github.io/WEB_Project_Smart-Study-Planner/)**
 
-## Tech Stack
-- **React 19 + Vite** — fast dev server & build
-- **localStorage** — all data stored client-side, no backend needed
-- **CSS Variables** — dual-theme (light/dark) design system
+---
 
-## Local Development
+## 📅 Smart Study Planner
+A fully serverless, browser-based application built with **React 19** and **Vite**. It helps students organize their study sessions, track discipline streaks, and visualize long-term progress.
 
-```bash
-cd smart-study-planner
-npm install
-npm run dev
+### 🚀 Key Features
+- **Intelligent Scheduler**: Automatically distributes study hours across the week based on task deadlines, difficulty, and your daily availability.
+- **Dynamic Views**: Switch between **Day**, **Week**, and **Month** views. Highlighted focus for the current day.
+- **Discipline Tracker**: 🔥 Current Streak and 🏆 Max Streak tracking to keep you motivated.
+- **GitHub-style Heatmap**: Historical tracking in the Month view allows you to see your consistency over time (Prev Month navigation).
+- **Control & Flexibility**:
+  - `Undo Block`: Mistakenly marked a task done? Undo it with one click.
+  - `Bonus Hours`: Finished your day early? Pull tomorrow's tasks into today on demand.
+  - `Auto-Rescheduling`: Incomplete tasks automatically move to future days to ensure you stay on track.
+- **Rich UI/UX**:
+  - 🌙 Light / Dark mode support.
+  - Onboarding flow for personalized experience.
+  - Subject-based auto-color coding (Pastel themes).
+- **Data & Privacy**: 🔒 All user data is stored **exclusively in your browser** via `localStorage`. No data is ever sent to a server.
+
+---
+
+## 🏗️ Project Overview & Organization
+
+The repository is structured as a multi-part web project:
+
+```text
+WEB_Project_Smart-Study-Planner/
+├── student-profile/             # Portfolio Section
+│   └── stu. profile.html        # Main HTML structure with Glassmorphism design
+├── smart-study-planner/         # React Application
+│   ├── src/
+│   │   ├── components/          # UI Components
+│   │   │   ├── ProfileSetup.jsx # First-time onboarding
+│   │   │   ├── TaskList.jsx     # Managed task entries
+│   │   │   ├── SchedulePanel.jsx# Calendar & Schedule views
+│   │   │   └── InputPanel.jsx   # Task creation & validation
+│   │   ├── utils/
+│   │   │   └── scheduler.js     # CORE: Scheduling algorithm & history logic
+│   │   ├── App.jsx              # Main App state & Routing
+│   │   ├── App.css              # Dashboard styling
+│   │   └── index.css            # Global Theme Variables (Light/Dark)
+│   ├── public/                  # Static assets
+│   └── vite.config.js           # Build & Deployment configuration
+├── README.md                    # Project documentation
+└── .gitignore                   # Version control exclusions
 ```
 
-## Deploy to GitHub Pages
+---
 
+## 🛠️ Technical Stack
+- **Frontend**: React 19, JavaScript (ES6+), HTML5, CSS3.
+- **Build Tool**: Vite.
+- **Persistence**: Browser `localStorage`.
+- **Deployment**: GitHub Pages.
+
+## 💻 Local Development
+
+1. **Clone the repository**:
+   ```bash
+   git clone https://github.com/MayurRajeshKeni/WEB_Project_Smart-Study-Planner.git
+   ```
+2. **Setup the Planner**:
+   ```bash
+   cd smart-study-planner
+   npm install
+   npm run dev
+   ```
+3. **Open the Profile**:
+   Simply open `student-profile/stu. profile.html` in any modern browser.
+
+## 🚀 Deployment
+
+To deploy updates to the live site:
 ```bash
 cd smart-study-planner
-npm install gh-pages --save-dev
-npm run deploy
+npm run deploy  # Rebuilds and pushes to gh-pages branch
 ```
-
-This will build and push the `dist/` folder to the `gh-pages` branch automatically.
-Ensure `vite.config.js` has `base: './'` (already configured).
-
-## Data & Privacy
-All user data (tasks, streaks, profile) is stored **exclusively in the user's browser** via `localStorage`. No data is ever sent to any server.
