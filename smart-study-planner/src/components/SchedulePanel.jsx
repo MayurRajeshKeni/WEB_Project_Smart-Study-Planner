@@ -198,91 +198,75 @@ const SchedulePanel = ({ tasks, dailyAvailability, onMarkBlockDone, onResetToday
   };
 
   const getMonthView = () => {
-    if (monthOffset < 0) {
-      const pastDays = getHistoricalDays();
-      const monthLabel = pastDays[0].dateObj.toLocaleString('default', { month: 'long', year: 'numeric' });
-      
-      return (
-        <div className="animate-fade-in">
-           <h3 style={{ textAlign: 'center', marginBottom: '1rem', color: 'var(--text-secondary)' }}>{monthLabel} (History Log)</h3>
-           <div style={{ display: 'grid', gridTemplateColumns: 'repeat(7, 1fr)', gap: '0.5rem' }}>
-             {pastDays.map((day, idx) => {
-               let bg = 'var(--bg-secondary)';
-               if (day.loggedHours > 0) bg = 'rgba(16, 185, 129, 0.2)';
-               if (day.loggedHours >= 3) bg = 'rgba(16, 185, 129, 0.5)';
-               if (day.loggedHours >= 6) bg = 'rgba(16, 185, 129, 0.9)';
-               
-               return (
-                 <div key={idx} style={{ 
-                   background: bg,
-                   border: '1px solid var(--border-color)',
-                   borderRadius: 'var(--radius-sm)',
-                   padding: '0.8rem',
-                   display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center',
-                   minHeight: '80px', transition: 'all 0.2s'
-                 }}>
-                   <div style={{ fontSize: '0.8rem', fontWeight: 'bold', color: day.loggedHours > 5 ? 'white' : 'inherit' }}>{day.dateObj.getDate()}</div>
-                   {day.loggedHours > 0 && <div style={{ fontSize: '0.7rem', opacity: 0.8, color: day.loggedHours > 5 ? 'white' : 'inherit' }}>{day.loggedHours}h</div>}
-                 </div>
-               )
-             })}
-           </div>
-        </div>
-      );
-    }
-
-    if (schedule.length === 0) return <div style={{ textAlign: 'center', padding: '2rem' }}>No schedule generated.</div>;
-    const monthSchedule = schedule.slice(0, 28);
-    const forwardMonthLabel = schedule[0].dateObj.toLocaleString('default', { month: 'long', year: 'numeric' });
-
+    const pastDays = getHistoricalDays();
+    const forwardMonthLabel = pastDays[0].dateObj.toLocaleString('default', { month: 'long', year: 'numeric' });
+    
     return (
       <div className="animate-fade-in">
-        <h3 style={{ textAlign: 'center', marginBottom: '1rem', color: 'var(--text-secondary)' }}>{forwardMonthLabel} (Planner)</h3>
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: '0.5rem' }}>
-          {monthSchedule.map((day, idx) => {
-            const isToday = idx === 0;
-            const dayLogsArray = dailyLogs[day.dateIso] || [];
-            const dayLoggedHours = dayLogsArray.reduce((acc, curr) => acc + curr.allocatedHours, 0);
-
-            return (
-              <div key={idx} style={{ 
-                background: isToday ? 'var(--accent-glow)' : 'var(--bg-secondary)',
-                border: isToday ? '2px solid var(--accent-primary)' : '1px solid var(--border-color)',
-                borderRadius: 'var(--radius-md)',
-                padding: '0.5rem',
-                display: 'flex',
-                flexDirection: 'column',
-                minHeight: '120px'
-              }}>
-                <div style={{ fontSize: '0.75rem', fontWeight: 'bold', marginBottom: '0.5rem', borderBottom: '1px solid var(--border-color)', paddingBottom: '0.2rem', color: isToday ? 'var(--text-primary)' : 'inherit' }}>
-                  {day.date} {isToday && '(Today)'}
+        <h3 style={{ textAlign: 'center', marginBottom: '1rem', color: 'var(--text-secondary)' }}>
+          {forwardMonthLabel} {monthOffset < 0 ? '(History Log)' : '(Planner & History)'}
+        </h3>
+        
+        <div style={{ marginBottom: '2rem' }}>
+          <p style={{ fontSize: '0.8rem', color: 'var(--text-secondary)', marginBottom: '0.5rem', fontWeight: 600 }}>CONSISTENCY HEATMAP:</p>
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(40px, 1fr))', gap: '0.3rem' }}>
+            {pastDays.map((day, idx) => {
+              let bg = 'var(--bg-secondary)';
+              const opacity = day.loggedHours > 0 ? Math.min(1, 0.2 + (day.loggedHours / 10)) : 0.1;
+              if (day.loggedHours > 0) bg = `rgba(16, 185, 129, ${opacity})`;
+              
+              return (
+                <div key={idx} title={`${day.date}: ${day.loggedHours}h`} style={{ 
+                  background: bg,
+                  border: '1px solid var(--border-color)',
+                  borderRadius: '3px',
+                  aspectRatio: '1',
+                  display: 'flex', alignItems: 'center', justifyContent: 'center',
+                  fontSize: '0.65rem',
+                  color: day.loggedHours > 4 ? 'white' : 'var(--text-secondary)',
+                  cursor: 'help'
+                }}>
+                  {day.dateObj.getDate()}
                 </div>
-                
-                {isToday && dayLoggedHours > 0 && (
-                  <div style={{ fontSize: '0.65rem', background: 'var(--success)', color: 'white', padding: '0.2rem', borderRadius: '4px', marginBottom: '0.2rem', textAlign: 'center' }}>
-                    {dayLoggedHours}h Completed
-                  </div>
-                )}
-                
-                <div style={{ flex: 1, display: 'flex', flexDirection: 'column', gap: '0.3rem' }}>
-                  {day.items.slice(0, 3).map((it, i) => (
-                    <div key={i} style={{ fontSize: '0.65rem', background: it.themeBg || 'var(--bg-glass)', padding: '0.3rem', borderRadius: '4px', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis', borderLeft: '2px solid var(--accent-primary)' }}>
-                      {it.allocatedHours}h <span className="text-capitalize">{it.subject}</span>
-                    </div>
-                  ))}
-                  {day.items.length > 3 && (
-                    <div style={{ fontSize: '0.65rem', color: 'var(--text-secondary)' }}>+{day.items.length - 3} more...</div>
-                  )}
-                  {day.items.length === 0 && day.availableHours > 0 && (
-                    <div style={{ fontSize: '0.7rem', color: 'var(--text-secondary)', fontStyle: 'italic', marginTop: 'auto' }}>Free Capacity</div>
-                  )}
-                </div>
-              </div>
-            )
-          })}
+              );
+            })}
+          </div>
         </div>
+
+        {monthOffset === 0 && (
+          <>
+            <p style={{ fontSize: '0.8rem', color: 'var(--text-secondary)', marginBottom: '0.5rem', fontWeight: 600 }}>UPCOMING SCHEDULE:</p>
+            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(200px, 1fr))', gap: '0.5rem' }}>
+              {schedule.slice(0, 12).map((day, idx) => {
+                const isToday = idx === 0;
+                return (
+                  <div key={idx} style={{ 
+                    background: isToday ? 'var(--accent-glow)' : 'var(--bg-secondary)',
+                    border: isToday ? '2px solid var(--accent-primary)' : '1px solid var(--border-color)',
+                    borderRadius: 'var(--radius-md)',
+                    padding: '0.5rem',
+                    minHeight: '100px',
+                    display: 'flex', flexDirection: 'column'
+                  }}>
+                    <div style={{ fontSize: '0.75rem', fontWeight: 'bold', borderBottom: '1px solid var(--border-color)', marginBottom: '0.3rem', color: isToday ? 'var(--text-primary)' : 'inherit' }}>
+                      {day.date}
+                    </div>
+                    <div style={{ flex: 1, display: 'flex', flexDirection: 'column', gap: '0.2rem' }}>
+                      {day.items.slice(0, 2).map((it, i) => (
+                        <div key={i} style={{ fontSize: '0.65rem', background: it.themeBg || 'var(--bg-glass)', padding: '0.2rem 0.4rem', borderRadius: '3px', borderLeft: '2px solid var(--accent-primary)' }}>
+                          {it.allocatedHours}h {it.subject}
+                        </div>
+                      ))}
+                      {day.items.length > 2 && <div style={{ fontSize: '0.6rem', color: 'var(--text-secondary)' }}>+{day.items.length-2} more</div>}
+                    </div>
+                  </div>
+                );
+              })}
+            </div>
+          </>
+        )}
       </div>
-    )
+    );
   };
 
   return (

@@ -191,11 +191,46 @@ function App() {
     setDailyAvailability(prev => ({ ...prev, [day]: Math.min(24, Math.max(0, Number(value))) }));
   };
 
+  const handleLoadDemo = () => {
+    const demoProfile = { name: "Demo Student", email: "demo@vit.edu", course: "B.Tech CSE", semester: "4" };
+    const demoTasks = [
+      { id: 1, title: 'Study React Hooks', subject: 'Web Programming', duration: 10, completedHours: 6, difficulty: 'medium', dueDate: '2026-04-10', completed: false },
+      { id: 2, title: 'Data Structures Lab', subject: 'DSA', duration: 5, completedHours: 5, difficulty: 'hard', dueDate: '2026-03-31', completed: true },
+      { id: 3, title: 'OS Project', subject: 'Operating Systems', duration: 20, completedHours: 5, difficulty: 'hard', dueDate: '2026-04-15', completed: false }
+    ];
+    
+    // Generate 15 days of history for heatmap tracking
+    const demoLogs = {};
+    const today = new Date();
+    for (let i = 1; i <= 15; i++) {
+        const d = new Date();
+        d.setDate(today.getDate() - i);
+        const dateStr = `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')}`;
+        demoLogs[dateStr] = [{ id: 99, title: 'Past Study session', subject: 'General', allocatedHours: Math.floor(Math.random() * 6) + 1, uniqueBlockId: Date.now() + i }];
+    }
+
+    localStorage.setItem('studyPlannerProfile', JSON.stringify(demoProfile));
+    localStorage.setItem('studyPlannerTasks', JSON.stringify(demoTasks));
+    localStorage.setItem('studyPlannerDailyLogs', JSON.stringify(demoLogs));
+    localStorage.setItem('studyPlannerStreak', 15);
+    localStorage.setItem('studyPlannerMaxStreak', 20);
+    localStorage.setItem('studyPlannerLastActive', new Date().toDateString());
+    
+    window.location.reload(); // Refresh to inject demo data
+  };
+
   if (!userProfile) {
-    return <ProfileSetup onComplete={setUserProfile} />;
+    return <ProfileSetup onComplete={setUserProfile} onDemo={handleLoadDemo} />;
   }
 
   const DAYS = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+
+  const handleLogout = () => {
+    if (window.confirm("This will clear ALL local study data and your profile. Continue?")) {
+      localStorage.clear();
+      window.location.reload();
+    }
+  };
 
   return (
     <div className="app">
@@ -211,6 +246,14 @@ function App() {
             style={{ fontSize: '1rem', padding: '0.3rem 0.6rem', background: 'var(--bg-glass)', borderRadius: 'var(--radius-md)', color: 'var(--text-primary)', border: '1px solid var(--border-color)' }}
           >
             {theme === 'dark' ? '☀ Light Mode' : '🌙 Dark Mode'}
+          </button>
+          
+          <button 
+            className="btn" 
+            onClick={handleLogout}
+            style={{ fontSize: '1rem', padding: '0.3rem 0.6rem', background: 'rgba(239, 68, 68, 0.1)', border: '1px solid var(--danger)', color: 'var(--danger)', borderRadius: 'var(--radius-md)' }}
+          >
+            Reset App
           </button>
         </div>
 

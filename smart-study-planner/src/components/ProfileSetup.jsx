@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-const ProfileSetup = ({ onComplete }) => {
+const ProfileSetup = ({ onComplete, onDemo }) => {
   const [profile, setProfile] = useState({
     name: '',
     email: '',
@@ -45,7 +45,10 @@ const ProfileSetup = ({ onComplete }) => {
             </div>
           </div>
           
-          <button type="submit" className="btn btn--primary" style={{ width: '100%', marginTop: '1.5rem', padding: '1rem' }}>Get Started</button>
+          <div style={{ display: 'flex', gap: '1rem', marginTop: '1.5rem' }}>
+            <button type="submit" className="btn btn--primary" style={{ flex: 2, padding: '1rem' }}>Get Started</button>
+            <button type="button" onClick={onDemo} className="btn" style={{ flex: 1, padding: '1rem', background: 'var(--bg-secondary)', border: '1px solid var(--border-color)', color: 'var(--text-primary)' }}>Demo Mode</button>
+          </div>
         </form>
       </div>
     </div>
